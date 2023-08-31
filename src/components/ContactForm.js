@@ -3,18 +3,10 @@ import { StyledField } from './Form.styled';
 import { SubmitButton } from './Form.styled';
 import { StyledForm } from './Form.styled';
 
-export const ContactForm = ({ addContact, contacts }) => {
+export const ContactForm = ({ addContact }) => {
   const handleFormSubmit = (values, { resetForm }) => {
-    const isNameTaken = contacts.some(
-      contact => contact.name.toLowerCase() === values.name.toLowerCase()
-    );
-
-    if (isNameTaken) {
-      alert('This name is already in the phonebook.');
-    } else {
-      addContact(values.name, values.number);
-      resetForm();
-    }
+    addContact(values.name, values.number);
+    resetForm();
   };
 
   return (
@@ -28,7 +20,7 @@ export const ContactForm = ({ addContact, contacts }) => {
             type="text"
             name="name"
             placeholder="Write here your name"
-            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+            pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
             required
           />
@@ -38,7 +30,7 @@ export const ContactForm = ({ addContact, contacts }) => {
             type="tel"
             name="number"
             placeholder="Write here your number"
-            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+            pattern="\+?\d{1,4}?[ .\-\s]?\(?\d{1,3}?\)?[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,9}"
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             required
           />

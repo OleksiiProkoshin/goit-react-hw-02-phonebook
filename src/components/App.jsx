@@ -5,15 +5,21 @@ import { Filter } from './Filter';
 import { nanoid } from 'nanoid';
 
 export class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      contacts: [],
-      filter: '',
-    };
-  }
+  state = {
+    contacts: [],
+    filter: '',
+  };
 
   addContact = (name, number) => {
+    const isNameTaken = this.state.contacts.some(
+      contact => contact.name.toLowerCase() === name.toLowerCase()
+    );
+
+    if (isNameTaken) {
+      alert('This name is already in the phonebook.');
+      return;
+    }
+
     const newContact = { id: nanoid(), name, number };
     this.setState(prevState => ({
       contacts: [...prevState.contacts, newContact],
@@ -58,4 +64,3 @@ export class App extends Component {
     );
   }
 }
-
